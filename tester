@@ -1,0 +1,67 @@
+import planetas.*
+test "El poder de un planeta es la suma de todos los que habitan en el" {
+	
+	
+	const hanSolo = new Combatiente(inteligencia = 200,valentia=100,armas= []) 
+	const armaPotente= new Arma(potencia = 70)
+	const armaPotenteDesgastada= new Arma(potencia = 70, desgastada = true)
+	const otraArmaPotenteBien= new Arma(potencia=130)
+	const armaPocaPotencia= new Arma(potencia=5)
+	const chubaca = new Combatiente(inteligencia = 10,valentia=40,armas= [otraArmaPotenteBien,armaPotenteDesgastada])
+	const juanPerez = new Persona(inteligencia=70, valentia=30)
+	var tatooine = new Planeta(habitantes= [hanSolo,chubaca,juanPerez])
+	
+	assert.equals(650,tatooine.poder())
+
+}
+
+test "poder de un jedi" {
+	const yoda = new Maestro (
+		inteligencia = 100,
+		valentia = 50,
+		midiclorianos=2000,
+		sableDeLuz = new Arma(potencia=100),
+		lado = new LadoLuminoso(tiempoDelLadoLuminoso =10)
+		
+		assert.equals(150+2+1000,yoda.poder())
+}
+
+test "poder de un sith" {
+	const emperador = new Maestro (
+		inteligencia = 100,
+		valentia = 50,
+		midiclorianos=2000,
+		sableDeLuz = new Arma(potencia=100),
+		lado = new LadoOscuro(tiempoDelLadoOscuro = 10)
+		
+		assert.equals(150+2+210,emperador.poder())
+}
+
+test "un maestro jedi vive un suceso de elevad carga emocional negativa y se pasa al lado oscuro" {
+	const anakin = new Maestro(
+		inteligencia = 100,
+		valentia = 50,
+		midiclorianos=2000,
+		sableDeLuz = new Arma(potencia=100),
+		lado = new LadoLuminoso(tiempoDelLadoLuminoso =10))
+	const padmeEnferma = new Suceso(cargaEmocional = -101)
+	anakin.vivirSuceso(padmeEnferma)
+	
+	assert.equals("Oscuro",anakin.lado().descripcion())
+}
+
+test "un maestro jedi vive un suceso de elevad carga emocional positiva y se pasa al lado luminoso" {
+	const anakin = new Maestro(
+		inteligencia = 100,
+		valentia = 50,
+		midiclorianos=2000,
+		sableDeLuz = new Arma(potencia=100),
+		lado = new LadoLuminoso(tiempoDelLadoLuminoso =10))
+	const padmeEnferma = new Suceso(cargaEmocional = -101)
+	anakin.vivirSuceso(padmeEnferma)
+	const vader=anakin
+	const lukeEnPeligro = new Suceso (cargaEmocional = 221)
+	vader.vivirSuceso(lukeEnPeligro)
+	assert.equals("Luminoso",vader.lado().descripcion())
+
+}
